@@ -33,4 +33,4 @@ The USGS is interested in building a new set of tools that will allow them visua
 
 * Added layer controls/buttons to the map.
 
-* Click here for the visualization: [Earthquake Visualization](https://posh007.github.io/leaflet-challenge/Step-1/index.html).   
+* Click here for the visualization: [Earthquake Visualization](https://posh007.github.io/leaflet-challenge/step-1/index.html).   
