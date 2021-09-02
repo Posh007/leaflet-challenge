@@ -14,7 +14,7 @@ var graymap = L.tileLayer(
   }
 );
 
-// We create the map object with options.
+// Create the map object with options.
 var map = L.map("map", {
   center: [
     40.7, -94.5

@@ -1,8 +1,6 @@
 console.log("Step 2 working");
 
-
-// We create the tile layers that will be the selectable backgrounds of our map.
-// One for our grayscale background.
+// create the tile layers and grayscale background.
 
 var graymap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -31,7 +29,6 @@ var outdoors = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/
   accessToken: API_KEY
 });
 
-// We then create the map object with options. Adding the tile layers we just
 // created to an array of layers.
 var map = L.map("map", {
   center: [
@@ -41,24 +38,21 @@ var map = L.map("map", {
   layers: [graymap, satellitemap, outdoors]
 });
 
-// Adding our 'graymap' tile layer to the map.
+// Adding graymap  layer 
 graymap.addTo(map);
 
-// We create the layers for our two different sets of data, earthquakes and
-// tectonicplates.
+// earthquakes and tectonicplates layers
 var tectonicplates = new L.LayerGroup();
 var earthquakes = new L.LayerGroup();
 
-// Defining an object that contains all of our different map choices. Only one
-// of these maps will be visible at a time!
+// make only one map to be visible at a time
 var baseMaps = {
   Satellite: satellitemap,
   Grayscale: graymap,
   Outdoors: outdoors
 };
 
-// We define an object that contains all of our overlays. Any combination of
-// these overlays may be visible at the same time!
+// object to hold overlays. Any combination of
 var overlays = {
   "Tectonic Plates": tectonicplates,
   Earthquakes: earthquakes
@@ -71,7 +65,7 @@ L
   .layers(baseMaps, overlays)
   .addTo(map);
 
-// Our AJAX call retrieves our earthquake geoJSON data.
+// AJAX call to retrievesearthquake geoJSON data.
 d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").then(function(data) {
 
   // This function returns the style data for each of the earthquakes we plot on
@@ -137,13 +131,13 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
           + feature.properties.place
       );
     }
-    // We add the data to the earthquake layer instead of directly to the map.
+    //add the data to the earthquake layer 
   }).addTo(earthquakes);
 
-  // Then we add the earthquake layer to our map.
+  //  add the earthquake layer 
   earthquakes.addTo(map);
 
-  // Here we create a legend control object.
+  // create a legend control object.
   var legend = L.control({
     position: "bottomright"
   });
@@ -160,7 +154,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
       "#ea822c",
       "#ea2c2c"];
 
-    // Loop through our intervals and generate a label with a colored square for each interval.
+    // Loop through our intervals and generate a label
     for (var i = 0; i < grades.length; i++) {
       div.innerHTML += "<i style='background: "
         + colors[i]
@@ -171,10 +165,10 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
     return div;
   };
 
-  // We add our legend to the map.
+  // add our legend to the map.
   legend.addTo(map);
 
-  // Here we make an AJAX call to get our Tectonic Plate geoJSON data.
+  //  create AJAX call to get Tectonic Plate geoJSON data.
   d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then(function(platedata) {
       // Adding our geoJSON data, along with style information, to the tectonicplates
       // layer.
